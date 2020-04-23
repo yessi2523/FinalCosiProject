@@ -82,7 +82,10 @@ def information():
             for y in matching_recipes:
                 for key in y['name']:
                     if r == key:
-                        print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))
+                        if "/" in y['steps']:
+                            print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
+                        else:
+                            print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))
     selection()
     print("\n")
 
