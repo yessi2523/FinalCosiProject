@@ -2,11 +2,6 @@ import csv
 csv_recipes = list(csv.DictReader(open('RAW_recipes.csv','r'),delimiter=','))
 
 
-print("Hi! Welcome to Quaratine Eats! Here, we will be helping you find recipes you can make with the limited ingredients you may have in the house.\n")
-print("It may seem like certain things don't go together, but try inputting the ingredients you have and we'll see what recipes we can come up with!\n")
-print("When inputting your ingredients, remember to please seperate them by commas with no spaces in between!\n\n")
-
-
 ingred_list = str(input("Input your ingredients: "))
 
 split_ingred = ingred_list.split(",")

@@ -7,11 +7,12 @@ from flask import Flask, render_template, request
 import hangman_methods
 app = Flask(__name__)
 
+import csv
+csv_recipes = list(csv.DictReader(open('RAW_recipes.csv','r'),delimiter=','))
+
+
 global state
-state = {'guesses':[],
-         'word':"interesting",
-		 'word_so_far':"-----------",
-		 'done':False}
+state = {'ingred_list':[]}
 
 @app.route('/')
 @app.route('/main')
@@ -21,56 +22,96 @@ def main():
 @app.route('/start')
 def play():
     global state
-    state['word']=hangman_methods.generate_random_word()
-    state['guesses'] = []
-    word_so_far = hangman_methods.print_word(state)
-    state['word_so_far'] = word_so_far
     print(state)
     return render_template("start.html",state=state)
 
 
-@app.route('/play',methods=['GET','POST'])
-def hangman():
-    """ plays hangman game """
+@app.route('/submit',methods=['GET','POST'])
+def split():
     global state
-    word_so_far = hangman_methods.print_word(state)
-    state['word_so_far'] = word_so_far
-    if request.method =='GET':
-        return play()
+    state['ingred_list']=ingred_list
+    split_ingred = ingred_list.split(",")
+    print(split_ingred)
+    print(len(split_ingred))
 
-    elif request.method == 'POST':
-        letter = request.form['guess']
-        guesses = []
-        guesses.append(letter)
-        guesses= "".join(guesses)
-        word=state['word']
-        letter_length = False
-        already_guessed=False
-        won = False
-        if len(letter) > 1:
-            letter_length = True
-            print("Please only enter one letter.")
-        if letter in state['guesses']: # check if letter has already been guessed
-            already_guessed=True
-            print("you already guessed that.")
-            print("please guess again.") # and generate a response to guess again
-        elif letter in word: # else check if letter is in word
-            print("Yay! The letter is in the word.")
-        state['guesses'] += [letter]
-        word_so_far = hangman_methods.print_word(state)
-        state['word_so_far'] = word_so_far
-        if state['word_so_far']==state['word']: # then see if the word is complete
-            won = True
-            print('you won!')
-        elif letter not in word: # if letter not in word, then tell them
-            print("that letter is not in the word. try again.")
-        return render_template('play.html',state=state,
-                                            letter=letter,
-                                            letter_length=letter_length,
-                                            word=state['word'],
-                                            guesses=state['guesses'],
-                                            already_guessed=already_guessed,
-                                            won=won)
+    matching_recipes = []
+
+
+    if sorting == 'a':
+        sorting='time'
+    elif sorting == 'b':
+        sorting = 'number_steps'
+    elif sorting == 'c':
+        sorting = 'num_ingredients'
+
+
+    for i in csv_recipes:
+        matches = True
+        for x in split_ingred:
+            if x not in i['ingredients']:
+                matches = False
+        if matches:
+            matching_recipes.append({'name': [i['name']],'descrip':[i['description']], 'number_steps':[i['n_steps']], 'time':[i['minutes']],'steps':[i['steps']],
+                                    'ingred': [i['ingredients']],
+                                    'num_ingredients': [i['n_ingredients']]})
+            matching_recipes.sort(key=lambda x: x[sorting])
+
+    print("These are the top 5 recipes:\n")
+    for y in matching_recipes[0:5]:
+        for key in y['name']:
+            print("»" + key)
+    print("\n")
+    return render_template("submit.html",state=state)
+
+@app.route('/information.html',methods=['GET','POST'])
+def information():
+    global state
+    print(state['ingred_list'])
+    if narrow == 'description':
+        print("\n")
+        for y in matching_recipes:
+            for key in y['name']:
+                if r == key:
+                    print("Description:", y['descrip'])
+
+    if narrow == 'number of steps':
+        print("\n")
+        for y in matching_recipes:
+            for key in y['name']:
+                if r == key:
+                    print("This recipe has", y['number_steps'], "steps.")
+
+    if narrow == 'time to prepare':
+        print("\n")
+        for y in matching_recipes:
+            for key in y['name']:
+                if r == key:
+                    print("This recipe takes", y['time'], "minutes.")
+
+    if narrow == 'steps':
+        print("\n")
+        for y in matching_recipes:
+            for key in y['name']:
+                if r == key:
+                    if "/" in y['steps']:
+                        print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
+                    else:
+                        print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))
+    return render_template("information.html",state=state)
+
+@app.route('/again',methods=['GET','POST'])
+def again():
+    global state
+    print(state['ingred_list'])
+    if again == "yes":
+        print("\n")
+        information()
+    else:
+        print("\n\nGood luck with your recipe! ツ")
+    return render_template("again.html",state=state)
+
+
+
 
 @app.route('/about')
 def about():
