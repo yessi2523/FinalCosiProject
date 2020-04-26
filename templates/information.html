@@ -1,0 +1,27 @@
+{% extends "fancylayout.html" %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1>Quarantine Eats</h1>
+  </div>
+
+  <form method="post" action="/information">
+    Would you like to see the 'description', 'number of steps', 'time to prepare' or 'steps' for one of these recipes?  <input type="text" name="narrow">
+    <br>
+    <input type="submit" class="btn btn-lg btn-danger">
+  </form>
+
+  <form method="post" action="/information">
+    Copy and paste the recipe you're interested in.  <input type="text" name="r">
+    <br>
+    <input type="submit" class="btn btn-lg btn-danger">
+  </form>
+
+
+
+
+
+
+
+
+{% endblock %}

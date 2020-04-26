@@ -21,15 +21,11 @@ def main():
 @app.route('/start')
 def play():
     global state
-    state['word']=hangman_methods.generate_random_word()
-    state['guesses'] = []
-    word_so_far = hangman_methods.print_word(state)
-    state['word_so_far'] = word_so_far
     print(state)
     return render_template("start.html",state=state)
 
 
-@app.route('/play',methods=['GET','POST'])
+@app.route('/submit',methods=['GET','POST'])
 def hangman():
     """ plays hangman game """
     global state
@@ -39,7 +35,7 @@ def hangman():
         return play()
 
     elif request.method == 'POST':
-        letter = request.form['guess']
+        letter = request.form['ingred_list']
         guesses = []
         guesses.append(letter)
         guesses= "".join(guesses)
