@@ -12,34 +12,42 @@
     <p> >> {{x}}</p>
 {% endfor %}
 
-<p>Here is the information you requested:</p>
-{% for x in state['information'] %}
-    <p> >> {{x}}</p>
-{% endfor %}
+<br>
+<br>
+<br>
+<br>
 
-{% if narrow == 'all the information' %}
-      <br>
-      {% for y in state['recipes'] %}
-          {% for key in y['name'] %}
-              {% if r == key %}
-                  {{ state['information'] }}.append(y)
-                  <p>Description: y['descrip']</p>
-                  <p>This recipe has y['number_steps']  steps.</p>
-                  <p>This recipe takes y['time']  minutes.</p>
-                  {% if "/" in y['steps'] %}
-                      {{ state['information'] }}.append(y['steps'])
-                      <p>These are the steps:</p>
-                      <br>
-                      { str(y['steps']).replace('/' , '\n') }
-                  {% else %}
-                      <p>These are the steps:</p>
-                      <br>
-                      { str(y['steps']).replace(',' , '\n') }
-                  {% endif %}
-              {% endif %}
-          {% endfor %}
-      {% endfor %}
+<p> Here is the information you requested: </p>
+
+{% if state['narrow'] == state['all'] %}
+  <p> Name: {{ state['name'] }} </p>
+  <p> Time to Cook: {{ state['time'] }} </p>
+  <p> Description: {{ state['descrip'] }} </p>
+  <p> Ingredients: {{ state['in'] }} </p>
+  <p> Number of Steps: {{ state['number_steps'] }} </p>
+  <p> Steps: {{ state['steps'] }} </p>
 {% endif %}
+
+{% if state['narrow'] == state['description'] %}
+  <p> Name: {{ state['name'] }} </p>
+  <p> Description: {{ state['descrip'] }} </p>
+{% endif %}
+
+{% if state['narrow'] == state['numsteps'] %}
+  <p> Name: {{ state['name'] }} </p>
+  <p> Number of Steps: {{ state['number_steps'] }} </p>
+{% endif %}
+
+{% if state['narrow'] == state['t'] %}
+  <p> Name: {{ state['name'] }} </p>
+  <p> Time to Cook: {{ state['time'] }} </p>
+{% endif %}
+
+{% if state['narrow'] == state['s'] %}
+  <p> Name: {{ state['name'] }} </p>
+  <p> Steps: {{ state['steps'] }} </p>
+{% endif %}
+
 
 
 {% endblock %}

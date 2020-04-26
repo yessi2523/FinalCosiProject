@@ -72,8 +72,20 @@ def split():
 def information():
     global state
     state['information']=[]
+    state['descrip'] = []
+    state['number_steps'] = []
+    state['time']=[]
+    state['steps'] = []
+    state['in'] = []
+    state['name'] = []
     print(state['ingred_list'])
     narrow=request.form['gender']
+    state['narrow'] = narrow
+    state['all'] = 'all'
+    state['description'] = 'description'
+    state['numsteps'] = 'number of steps'
+    state['t'] = 'time'
+    state['s'] = 'step'
     r=request.form['r']
 
     if narrow == 'all':
@@ -82,6 +94,12 @@ def information():
             for key in y['name']:
                 if r == key:
                     state['information'].append(y)
+                    state['name'].append(y['name'])
+                    state['in'].append(y['ingred'])
+                    state['descrip'].append(y['descrip'])
+                    state['number_steps'].append(y['number_steps'])
+                    state['time'].append(y['time'])
+                    state['steps'].append(y['steps'])
                     print("Description:", y['descrip'])
                     print("This recipe has", y['number_steps'], "steps.")
                     print("This recipe takes", y['time'], "minutes.")
@@ -97,6 +115,8 @@ def information():
             for key in y['name']:
                 if r == key:
                     state['information'].append(y['descrip'])
+                    state['descrip'].append(y['descrip'])
+                    state['name'].append(y['name'])
                     print("Description:", y['descrip'])
 
     if narrow == 'number of steps':
@@ -105,6 +125,8 @@ def information():
             for key in y['name']:
                 if r == key:
                     state['information'].append(y['number_steps'])
+                    state['number_steps'].append(y['number_steps'])
+                    state['name'].append(y['name'])
                     print("This recipe has", y['number_steps'], "steps.")
 
     if narrow == 'time':
@@ -113,6 +135,8 @@ def information():
             for key in y['name']:
                 if r == key:
                     state['information'].append(y['time'])
+                    state['time'].append(y['time'])
+                    state['name'].append(y['name'])
                     print("This recipe takes", y['time'], "minutes.")
 
     if narrow == "step":
@@ -120,8 +144,9 @@ def information():
         for y in state['recipes']:
             for key in y['name']:
                 if r == key:
+                    state['steps'].append(y['steps'])
+                    state['name'].append(y['name'])
                     if "/" in y['steps']:
-                        state['information'].append(y['steps'])
                         print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
                     else:
                         print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))
