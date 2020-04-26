@@ -19,6 +19,7 @@ state = {'ingred_list':[]}
 def main():
 	return render_template('quarantineeats.html')
 
+
 @app.route('/start')
 def play():
     global state
@@ -39,15 +40,12 @@ def split():
 
     matching_recipes = []
 
-
     if sorting == 'a':
         sorting='time'
     elif sorting == 'b':
         sorting = 'number_steps'
     elif sorting == 'c':
         sorting = 'num_ingredients'
-
-
     for i in csv_recipes:
         matches = True
         for x in split_ingred:
@@ -58,17 +56,19 @@ def split():
                                     'ingred': [i['ingredients']],
                                     'num_ingredients': [i['n_ingredients']]})
             matching_recipes.sort(key=lambda x: x[sorting])
-
     print("These are the top recipes:\n")
+    state['recipe_names']=[]
     state['recipes']=[]
     for y in matching_recipes[0:5]:
+        state['recipes'].append(y)
         for key in y['name']:
             print("»" + key)
-            state['recipes'].append(key)
+            state['recipe_names'].append(key)
     print("\n")
     return render_template("submit.html",state=state)
 
-@app.route('/information.html',methods=['GET','POST'])
+
+@app.route('/information',methods=['GET','POST'])
 def information():
     global state
     state['information']=[]
@@ -77,35 +77,35 @@ def information():
     r=request.form['r']
     if narrow == 'description':
         print("\n")
-        for y in matching_recipes:
+        for y in state['recipes']:
             for key in y['name']:
                 if r == key:
-                    state['information'].append(key)
+                    state['information'].append(y['descrip'])
                     print("Description:", y['descrip'])
 
     if narrow == 'number of steps':
         print("\n")
-        for y in matching_recipes:
+        for y in state['recipes']:
             for key in y['name']:
                 if r == key:
-                    state['information'].append(key)
+                    state['information'].append(y['number_steps'])
                     print("This recipe has", y['number_steps'], "steps.")
 
     if narrow == 'time to prepare':
         print("\n")
-        for y in matching_recipes:
+        for y in state['recipes']:
             for key in y['name']:
                 if r == key:
-                    state['information'].append(key)
+                    state['information'].append(y['time'])
                     print("This recipe takes", y['time'], "minutes.")
 
     if narrow == 'steps':
         print("\n")
-        for y in matching_recipes:
+        for y in state['recipes']:
             for key in y['name']:
                 if r == key:
                     if "/" in y['steps']:
-                        state['information'].append(key)
+                        state['information'].append(y['steps'])
                         print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
                     else:
                         print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))

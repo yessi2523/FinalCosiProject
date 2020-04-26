@@ -8,6 +8,12 @@
   <p>Here are the ingredients you've entered: {{ state['ingred_list'] }} </p>
   <p>Here are the top matching recipes: </p>
 
-{% for x in state['recipes'] %}
+{% for x in state['csv_recipes'] %}
     <p> >> {{x}}</p>
 {% endfor %}
+
+{% for x in state['information'] %}
+    <p> >> {{x}}</p>
+{% endfor %}
+
+{% endblock %}

@@ -8,7 +8,7 @@
   <p>Here are the ingredients you've entered: {{ state['ingred_list'] }} </p>
   <p>Here are the top matching recipes: </p>
 
-{% for x in state['recipes'] %}
+{% for x in state['recipe_names'] %}
     <p> >> {{x}}</p>
 {% endfor %}
 
