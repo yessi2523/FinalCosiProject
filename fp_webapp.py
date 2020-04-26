@@ -29,6 +29,9 @@ def play():
 @app.route('/submit',methods=['GET','POST'])
 def split():
     global state
+    ingred_list=request.form['ingred_list']
+    sorting=request.form['sorting']
+    print(ingred_list)
     state['ingred_list']=ingred_list
     split_ingred = ingred_list.split(",")
     print(split_ingred)
@@ -56,10 +59,12 @@ def split():
                                     'num_ingredients': [i['n_ingredients']]})
             matching_recipes.sort(key=lambda x: x[sorting])
 
-    print("These are the top 5 recipes:\n")
+    print("These are the top recipes:\n")
+    state['recipes']=[]
     for y in matching_recipes[0:5]:
         for key in y['name']:
             print("»" + key)
+            state['recipes'].append(key)
     print("\n")
     return render_template("submit.html",state=state)
 
