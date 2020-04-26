@@ -8,12 +8,38 @@
   <p>Here are the ingredients you've entered: {{ state['ingred_list'] }} </p>
   <p>Here are the top matching recipes: </p>
 
-{% for x in state['csv_recipes'] %}
+{% for x in state['recipe_names'] %}
     <p> >> {{x}}</p>
 {% endfor %}
 
+<p>Here is the information you requested:</p>
 {% for x in state['information'] %}
     <p> >> {{x}}</p>
 {% endfor %}
+
+{% if narrow == 'all the information' %}
+      <br>
+      {% for y in state['recipes'] %}
+          {% for key in y['name'] %}
+              {% if r == key %}
+                  {{ state['information'] }}.append(y)
+                  <p>Description: y['descrip']</p>
+                  <p>This recipe has y['number_steps']  steps.</p>
+                  <p>This recipe takes y['time']  minutes.</p>
+                  {% if "/" in y['steps'] %}
+                      {{ state['information'] }}.append(y['steps'])
+                      <p>These are the steps:</p>
+                      <br>
+                      { str(y['steps']).replace('/' , '\n') }
+                  {% else %}
+                      <p>These are the steps:</p>
+                      <br>
+                      { str(y['steps']).replace(',' , '\n') }
+                  {% endif %}
+              {% endif %}
+          {% endfor %}
+      {% endfor %}
+{% endif %}
+
 
 {% endblock %}

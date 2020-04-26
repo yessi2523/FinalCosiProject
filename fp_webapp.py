@@ -73,8 +73,24 @@ def information():
     global state
     state['information']=[]
     print(state['ingred_list'])
-    narrow=request.form['narrow']
+    narrow=request.form['gender']
     r=request.form['r']
+
+    if narrow == 'all':
+        print("\n")
+        for y in state['recipes']:
+            for key in y['name']:
+                if r == key:
+                    state['information'].append(y)
+                    print("Description:", y['descrip'])
+                    print("This recipe has", y['number_steps'], "steps.")
+                    print("This recipe takes", y['time'], "minutes.")
+                    if "/" in y['steps']:
+                        state['information'].append(y['steps'])
+                        print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
+                    else:
+                        print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))
+
     if narrow == 'description':
         print("\n")
         for y in state['recipes']:
@@ -91,7 +107,7 @@ def information():
                     state['information'].append(y['number_steps'])
                     print("This recipe has", y['number_steps'], "steps.")
 
-    if narrow == 'time to prepare':
+    if narrow == 'time':
         print("\n")
         for y in state['recipes']:
             for key in y['name']:
@@ -99,7 +115,7 @@ def information():
                     state['information'].append(y['time'])
                     print("This recipe takes", y['time'], "minutes.")
 
-    if narrow == 'steps':
+    if narrow == "step":
         print("\n")
         for y in state['recipes']:
             for key in y['name']:
