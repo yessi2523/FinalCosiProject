@@ -71,12 +71,16 @@ def split():
 @app.route('/information.html',methods=['GET','POST'])
 def information():
     global state
+    state['information']=[]
     print(state['ingred_list'])
+    narrow=request.form['narrow']
+    r=request.form['r']
     if narrow == 'description':
         print("\n")
         for y in matching_recipes:
             for key in y['name']:
                 if r == key:
+                    state['information'].append(key)
                     print("Description:", y['descrip'])
 
     if narrow == 'number of steps':
@@ -84,6 +88,7 @@ def information():
         for y in matching_recipes:
             for key in y['name']:
                 if r == key:
+                    state['information'].append(key)
                     print("This recipe has", y['number_steps'], "steps.")
 
     if narrow == 'time to prepare':
@@ -91,6 +96,7 @@ def information():
         for y in matching_recipes:
             for key in y['name']:
                 if r == key:
+                    state['information'].append(key)
                     print("This recipe takes", y['time'], "minutes.")
 
     if narrow == 'steps':
@@ -99,6 +105,7 @@ def information():
             for key in y['name']:
                 if r == key:
                     if "/" in y['steps']:
+                        state['information'].append(key)
                         print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
                     else:
                         print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))
