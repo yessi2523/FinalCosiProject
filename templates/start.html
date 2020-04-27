@@ -3,9 +3,11 @@
 {% block content %}
   <div class="jumbotron">
     <body style="background-color:#A9D0F5;">
-    <h1 style="font-family:Bookman;">Quarantine Eats</h1>
+    <h1 style="font-family:Bookman;"><center>Quarantine Eats</center></h1>
   </div>
   <p style="font-size:160%;">Find a recipe!</p>
+
+
 
 
 
@@ -18,11 +20,20 @@
 <br></br>
 
 
-  <form method="post" action="/submit">
+  <form method="post" action="/submit"> <font size="3">
     Enter your ingredients: <input type="text" name="ingred_list">
-    <br>
-    How would you like the top recipes to be sorted? (a)Amount of time (b)Number of steps (c)Number of ingredients
-    <input type="text" name="sorting">
-    <input type="submit" class="btn btn-lg btn-danger">
+    <br></br>
+    <p style="font-size:140%;">How would you like the top recipes to be sorted?</p> 
+    <input type="radio" id="amount_time" name="sorting" value="amount_time">
+    <label for="amount_time">Amount of Time</label><br> 
+    <input type="radio" id="number of steps" name="sorting" value="stepnumbers">
+    <label for="stepnumbers">Number of Steps</label><br>
+    <input type="radio" id="ingredientnumbers" name="sorting" value="ingredientnumbers"> 
+    <label for="ingredientnumbers">Number of Ingredients</label><br> 
+
+
+    <input type="submit" class="btn btn-lg btn-danger"> </font>
   </form>
 {% endblock %}
+
+<form method="post" action="/information"> <font size="3">

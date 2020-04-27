@@ -3,10 +3,13 @@
 {% block content %}
   <div class="jumbotron">
     <body style="background-color:#A9D0F5;">
-    <h1 style="font-family:Bookman;">Quarantine Eats</h1>
+    <h1 style="font-family:Bookman;"><center>Quarantine Eats</center></h1>
   </div>
 
-  <p style="font-size:160%;">Here are the ingredients you've entered: {{ state['ingred_list'] }} </p>
+  <p style="font-size:160%;">Here are the ingredients you've entered: </p>
+  <p style="font-size:160%;text-indent: 40px">{{ state['ingred_list'] }}</p>
+  <br>
+  <br>
   <p style="font-size:160%;"><u>Here are the top matching recipes:</u></p>
 
 {% for x in state['recipe_names'] %}
@@ -17,7 +20,7 @@
 <br> 
 <br>  
 <p style="font-size:160%;">What information would you like to see?</p> 
-<form method="post" action="/information"> 
+<form method="post" action="/information"> <font size="3">
   <input type="radio" id="description" name="gender" value="description">
   <label for="description">Description</label><br> 
   <input type="radio" id="number of steps" name="gender" value="number of steps">
@@ -31,7 +34,8 @@
   <br>  
   <br>
    <br> 
-  Which recipe would you like to see the information of? Copy & paste the recipe here:   <input type="text" name="r">  
+  Which recipe would you like to see the information of? Copy & paste the recipe here:   <input type="text" name="r">  </font>
+  <br></br>
   <input type="submit" class="btn btn-lg btn-danger">  </form> 
 
 {% endblock %}

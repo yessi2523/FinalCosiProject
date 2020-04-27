@@ -2,11 +2,15 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1 style="font-family:Bookman;">Quarantine Eats</h1>
+    <h1 style="font-family:Bookman;"><center>Quarantine Eats</center></h1>
   </div>
   <body style="background-color:#A9D0F5;">
+  <p style="font-size:160%;">Here are the ingredients you've entered: </p>
+  <p style="font-size:160%;text-indent: 40px">{{ state['ingred_list'] }}</p>
 
-  <p style="font-size:160%;"><b>Here are the ingredients you've entered: {{ state['ingred_list'] }}</b></p>
+  <br>
+  <br>
+
   <p style="font-size:160%;"><u>Here are the top matching recipes: </u></</p>
 
 {% for x in state['recipe_names'] %}

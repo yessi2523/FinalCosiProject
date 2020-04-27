@@ -40,11 +40,11 @@ def split():
 
     matching_recipes = []
 
-    if sorting == 'a':
+    if sorting == 'amount_time':
         sorting='time'
-    elif sorting == 'b':
+    elif sorting == 'stepnumbers':
         sorting = 'number_steps'
-    elif sorting == 'c':
+    elif sorting == 'ingredientnumbers':
         sorting = 'num_ingredients'
     for i in csv_recipes:
         matches = True
