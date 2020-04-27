@@ -15,9 +15,10 @@
 <br>
 <br>
 <br>
-<br>
 
 <p> Here is the information you requested: </p>
+
+<br>
 
 {% if state['narrow'] == state['all'] %}
   <p> Name: {{ state['name'] }} </p>
@@ -48,6 +49,9 @@
   <p> Steps: {{ state['steps'] }} </p>
 {% endif %}
 
+<br>
+
+<p> Good luck with your recipe! </p>
 
 
 {% endblock %}
