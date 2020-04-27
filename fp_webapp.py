@@ -67,6 +67,8 @@ def split():
             state['recipe_names'].append(key)
     if len(matching_recipes) == 0:
         state['none'] = "There are no matching recipes. Sorry try again :(("
+    elif len(matching_recipes) > 0:
+        state['none'] = "Ta da!"
     print("\n")
     return render_template("submit.html",state=state)
 
