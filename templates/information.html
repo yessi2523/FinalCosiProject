@@ -27,7 +27,7 @@
 
 {% if state['narrow'] == state['all'] %}
   <p style="font-size:160%;"> Name: {{ state['name'] }} </p>
-  <p style="font-size:160%;"> Time to Cook: {{ state['time'] }} </p>
+  <p style="font-size:160%;"> Time to Cook: {{ state['time'] }} minutes </p>
   <p style="font-size:160%;"> Description: {{ state['descrip'] }} </p>
   <p style="font-size:160%;"> Ingredients: {{ state['in'] }} </p>
   <p style="font-size:160%;"> Number of Steps: {{ state['number_steps'] }} </p>
@@ -46,7 +46,7 @@
 
 {% if state['narrow'] == state['t'] %}
   <p style="font-size:160%;"> Name: {{ state['name'] }} </p>
-  <p style="font-size:160%;"> Time to Cook: {{ state['time'] }} </p>
+  <p style="font-size:160%;"> Time to Cook: {{ state['time'] }} minutes </p>
 {% endif %}
 
 {% if state['narrow'] == state['s'] %}
