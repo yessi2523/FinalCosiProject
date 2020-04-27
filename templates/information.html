@@ -2,56 +2,57 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1>Quarantine Eats</h1>
+    <h1 style="font-family:Bookman;">Quarantine Eats</h1>
   </div>
+  <body style="background-color:#A9D0F5;">
 
-  <p>Here are the ingredients you've entered: {{ state['ingred_list'] }} </p>
-  <p>Here are the top matching recipes: </p>
+  <p style="font-size:160%;"><b>Here are the ingredients you've entered: {{ state['ingred_list'] }}</b></p>
+  <p style="font-size:160%;"><u>Here are the top matching recipes: </u></</p>
 
 {% for x in state['recipe_names'] %}
-    <p> >> {{x}}</p>
+    <p style="font-size:160%;"> >> {{x}}</p>
 {% endfor %}
 
 <br>
 <br>
 <br>
 
-<p> Here is the information you requested: </p>
+<p style="font-size:160%;"><b> Here is the information you requested: </b></p>
 
 <br>
 
 {% if state['narrow'] == state['all'] %}
-  <p> Name: {{ state['name'] }} </p>
-  <p> Time to Cook: {{ state['time'] }} </p>
-  <p> Description: {{ state['descrip'] }} </p>
-  <p> Ingredients: {{ state['in'] }} </p>
-  <p> Number of Steps: {{ state['number_steps'] }} </p>
-  <p> Steps: {{ state['steps'] }} </p>
+  <p style="font-size:160%;"> Name: {{ state['name'] }} </p>
+  <p style="font-size:160%;"> Time to Cook: {{ state['time'] }} </p>
+  <p style="font-size:160%;"> Description: {{ state['descrip'] }} </p>
+  <p style="font-size:160%;"> Ingredients: {{ state['in'] }} </p>
+  <p style="font-size:160%;"> Number of Steps: {{ state['number_steps'] }} </p>
+  <p style="font-size:160%;"> Steps: {{ state['steps'] }} </p>
 {% endif %}
 
 {% if state['narrow'] == state['description'] %}
-  <p> Name: {{ state['name'] }} </p>
-  <p> Description: {{ state['descrip'] }} </p>
+  <p style="font-size:160%;"> Name: {{ state['name'] }} </p>
+  <p style="font-size:160%;"> Description: {{ state['descrip'] }} </p>
 {% endif %}
 
 {% if state['narrow'] == state['numsteps'] %}
-  <p> Name: {{ state['name'] }} </p>
-  <p> Number of Steps: {{ state['number_steps'] }} </p>
+  <p style="font-size:160%;"> Name: {{ state['name'] }} </p>
+  <p style="font-size:160%;"> Number of Steps: {{ state['number_steps'] }} </p>
 {% endif %}
 
 {% if state['narrow'] == state['t'] %}
-  <p> Name: {{ state['name'] }} </p>
-  <p> Time to Cook: {{ state['time'] }} </p>
+  <p style="font-size:160%;"> Name: {{ state['name'] }} </p>
+  <p style="font-size:160%;"> Time to Cook: {{ state['time'] }} </p>
 {% endif %}
 
 {% if state['narrow'] == state['s'] %}
-  <p> Name: {{ state['name'] }} </p>
-  <p> Steps: {{ state['steps'] }} </p>
+  <p style="font-size:160%;"> Name: {{ state['name'] }} </p>
+  <p style="font-size:160%;"> Steps: {{ state['steps'] }} </p>
 {% endif %}
 
 <br>
 
-<p> Good luck with your recipe! </p>
+<p style="font-size:200%;font-family:Bookman;"> Good luck with your recipe! </p>
 
 
 {% endblock %}

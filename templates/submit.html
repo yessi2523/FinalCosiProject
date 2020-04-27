@@ -2,20 +2,21 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1>Quarantine Eats</h1>
+    <body style="background-color:#A9D0F5;">
+    <h1 style="font-family:Bookman;">Quarantine Eats</h1>
   </div>
 
-  <p>Here are the ingredients you've entered: {{ state['ingred_list'] }} </p>
-  <p>Here are the top matching recipes: </p>
+  <p style="font-size:160%;">Here are the ingredients you've entered: {{ state['ingred_list'] }} </p>
+  <p style="font-size:160%;"><u>Here are the top matching recipes:</u></p>
 
 {% for x in state['recipe_names'] %}
-    <p> >> {{x}}</p>
+    <p style="font-size:160%;"> >> {{x}}</p>
 {% endfor %}
 
 
 <br> 
 <br>  
-<p>What information would you like to see?</p> 
+<p style="font-size:160%;">What information would you like to see?</p> 
 <form method="post" action="/information"> 
   <input type="radio" id="description" name="gender" value="description">
   <label for="description">Description</label><br> 
