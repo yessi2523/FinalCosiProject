@@ -30,6 +30,7 @@ def play():
 @app.route('/submit',methods=['GET','POST'])
 def split():
     global state
+    state['none'] = []
     ingred_list=request.form['ingred_list']
     sorting=request.form['sorting']
     print(ingred_list)
@@ -64,6 +65,8 @@ def split():
         for key in y['name']:
             print("»" + key)
             state['recipe_names'].append(key)
+    if len(matching_recipes) == 0:
+        state['none'] = "There are no matching recipes. Sorry try again :(("
     print("\n")
     return render_template("submit.html",state=state)
 
@@ -87,6 +90,7 @@ def information():
     state['t'] = 'time'
     state['s'] = 'step'
     r=request.form['r']
+
 
     if narrow == 'all':
         print("\n")
