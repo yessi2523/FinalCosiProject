@@ -28,11 +28,11 @@
 
 {% if state['narrow'] == state['all'] %}
   <p style="font-size:160%;"> <u>Name</u>: {{ state['name'] }} </p>
-  <p style="font-size:160%;"> <u>Time to Cook</u>: {{ state['time'] }} minutes </p>
+  <p style="font-size:160%;"> <u>Time to Cook</u>: {{ state['time'] }} minutes, or {{ state['hour'] }} hours </p>
   <p style="font-size:160%;"> <u>Description</u>: {{ state['descrip'] }} </p>
   <p style="font-size:160%;"> <u>Ingredients</u>: {{ state['in'] }} </p>
   <p style="font-size:160%;"> <u>Number of Steps</u>: {{ state['number_steps'] }} </p>
-  <p style="font-size:160%;"> <u>Steps</u>: {{ state['steps'] }} </p>
+  <p style="font-size:160%;"> <u>Steps</u>: {{ state['steps'] }}</p>
 {% endif %}
 
 {% if state['narrow'] == state['description'] %}
@@ -47,7 +47,7 @@
 
 {% if state['narrow'] == state['t'] %}
   <p style="font-size:160%;"> <u>Name</u>: {{ state['name'] }} </p>
-  <p style="font-size:160%;"> <u>Time to Cook:</u>{{ state['time'] }} minutes </p>
+  <p style="font-size:160%;"> <u>Time to Cook:</u>{{ state['time'] }} minutes,  or {{ state['hour'] }} hours </p>
 {% endif %}
 
 {% if state['narrow'] == state['s'] %}

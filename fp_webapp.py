@@ -82,6 +82,7 @@ def information():
     state['steps'] = []
     state['in'] = []
     state['name'] = []
+    state['hour'] = []
     print(state['ingred_list'])
     narrow=request.form['gender']
     state['narrow'] = narrow
@@ -114,6 +115,7 @@ def information():
         state['number_steps'] = ' '.join(d)
         state['time'] = ' '.join(e)
         state['steps'] = ' '.join(f)
+        state['hour'] = int(state['time'])/60
 
     if narrow == 'description':
         print("\n")
