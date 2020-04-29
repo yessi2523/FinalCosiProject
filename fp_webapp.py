@@ -116,6 +116,7 @@ def information():
         state['time'] = ' '.join(e)
         state['steps'] = ' '.join(f)
         state['hour'] = int(state['time'])/60
+        state['hour'] = str(round(state['hour'], 3))
 
     if narrow == 'description':
         print("\n")
@@ -154,6 +155,7 @@ def information():
         state['time'] = ' '.join(a)
         state['name'] = ' '.join(b)
         state['hour'] = int(state['time'])/60
+        state['hour'] = str(round(state['hour'], 3))
 
     if narrow == "step":
         print("\n")
