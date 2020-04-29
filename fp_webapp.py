@@ -75,10 +75,10 @@ def split():
 @app.route('/information',methods=['GET','POST'])
 def information():
     global state
-    state['information']=[]
+    state['information']= []
     state['descrip'] = []
     state['number_steps'] = []
-    state['time']=[]
+    state['time']= []
     state['steps'] = []
     state['in'] = []
     state['name'] = []
@@ -98,63 +98,73 @@ def information():
         for y in state['recipes']:
             for key in y['name']:
                 if r == key:
-                    state['information'].append(y)
-                    state['name'].append(y['name'])
-                    state['in'].append(y['ingred'])
-                    state['descrip'].append(y['descrip'])
-                    state['number_steps'].append(y['number_steps'])
-                    state['time'].append(y['time'])
-                    state['steps'].append(y['steps'])
+                    state['information'] = y
+                    a = y['name']
+                    b = y['ingred']
+                    c = y['descrip']
+                    d = y['number_steps']
+                    e = y['time']
+                    f = y['steps']
                     print("Description:", y['descrip'])
                     print("This recipe has", y['number_steps'], "steps.")
                     print("This recipe takes", y['time'], "minutes.")
-                    if "/" in y['steps']:
-                        state['information'].append(y['steps'])
-                        print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
-                    else:
-                        print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))
+        state['name'] = ' '.join(a)
+        state['in'] = ' '.join(b)
+        state['descrip'] = ' '.join(c)
+        state['number_steps'] = ' '.join(d)
+        state['time'] = ' '.join(e)
+        state['steps'] = ' '.join(f)
 
     if narrow == 'description':
         print("\n")
         for y in state['recipes']:
             for key in y['name']:
                 if r == key:
-                    state['information'].append(y['descrip'])
-                    state['descrip'].append(y['descrip'])
-                    state['name'].append(y['name'])
+                    state['information'] = y['descrip']
+                    a = y['descrip']
+                    b = y['name']
                     print("Description:", y['descrip'])
+
+        state['descrip'] = ' '.join(a)
+        state['name'] = ' '.join(b)
 
     if narrow == 'number of steps':
         print("\n")
         for y in state['recipes']:
             for key in y['name']:
                 if r == key:
-                    state['information'].append(y['number_steps'])
-                    state['number_steps'].append(y['number_steps'])
-                    state['name'].append(y['name'])
+                    state['information'] = y['number_steps']
+                    a = y['number_steps']
+                    b = y['name']
                     print("This recipe has", y['number_steps'], "steps.")
+        state['number_steps'] = ' '.join(a)
+        state['name'] = ' '.join(b)
 
     if narrow == 'time':
         print("\n")
         for y in state['recipes']:
             for key in y['name']:
                 if r == key:
-                    state['information'].append(y['time'])
-                    state['time'].append(y['time'])
-                    state['name'].append(y['name'])
+                    state['information'] = y['time']
+                    a = y['time']
+                    b = y['name']
                     print("This recipe takes", y['time'], "minutes.")
+        state['time'] = ' '.join(a)
+        state['name'] = ' '.join(b)
 
     if narrow == "step":
         print("\n")
         for y in state['recipes']:
             for key in y['name']:
                 if r == key:
-                    state['steps'].append(y['steps'])
-                    state['name'].append(y['name'])
+                    a = y['steps']
+                    b = y['name']
                     if "/" in y['steps']:
                         print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
                     else:
                         print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))
+        state['steps'] = ' '.join(a)
+        state['name'] = ' '.join(b)
     return render_template("information.html",state=state)
 
 @app.route('/again',methods=['GET','POST'])
