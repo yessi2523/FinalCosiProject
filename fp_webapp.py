@@ -153,6 +153,7 @@ def information():
                     print("This recipe takes", y['time'], "minutes.")
         state['time'] = ' '.join(a)
         state['name'] = ' '.join(b)
+        state['hour'] = int(state['time'])/60
 
     if narrow == "step":
         print("\n")
