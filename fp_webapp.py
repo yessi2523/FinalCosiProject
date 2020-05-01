@@ -166,6 +166,10 @@ def information():
         print("\n")
         a = y['steps']
         b = y['name']
+        a = a[0].strip('][').split(', ')
+        a = [a.strip('\'') for a in a]
+        a = [a.strip('\"') for a in a]
+        a=[a+","for a in a]
         if "/" in y['steps']:
             print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
         else:

@@ -13,7 +13,7 @@
   <p style="font-size:160%;"><u>Here are the top matching recipes:</u></p>
 
 {% for x in state['recipe_names'] %}
-    <p style="font-size:160%;"> >> {{x}}</p>
+    <p style="font-size:160%;"> {{x}}</p>
 {% endfor %}
 
 <p style="font-size:160%;"> {{ state['none'] }} </p>
@@ -36,7 +36,7 @@
   <br>  
   <br>
    <br> 
-  Which recipe would you like to see the information of? Copy & paste the recipe here:   <input type="text" name="r">  </font>
+  Which recipe would you like to see the information of? Input the matching number:   <input type="text" name="r">  </font>
   <br></br>
   <input type="submit" class="btn btn-lg btn-danger">  </form> 
 
