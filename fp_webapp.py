@@ -9,6 +9,7 @@ app = Flask(__name__)
 import csv
 csv_recipes = list(csv.DictReader(open('RAW_recipes.csv','r'),delimiter=','))
 
+import json
 
 global state
 state = {'ingred_list':[]}
@@ -59,11 +60,14 @@ def split():
     print("These are the top recipes:\n")
     state['recipe_names']=[]
     state['recipes']=[]
+    n=0
     for y in matching_recipes[0:5]:
         state['recipes'].append(y)
+        n+=1
         for key in y['name']:
             print("»" + key)
-            state['recipe_names'].append(key)
+            state['recipe_names'].append(str(n)+". "+key)
+
     if len(matching_recipes) == 0:
         state['none'] = "There are no matching recipes. Sorry try again :(("
     elif len(matching_recipes) > 0:
@@ -92,23 +96,30 @@ def information():
     state['t'] = 'time'
     state['s'] = 'step'
     r=request.form['r']
-
-
+    print(state['recipes'][int(r)-1])
+    y=state['recipes'][int(r)-1]
     if narrow == 'all':
         print("\n")
-        for y in state['recipes']:
-            for key in y['name']:
-                if r == key:
-                    state['information'] = y
-                    a = y['name']
-                    b = y['ingred']
-                    c = y['descrip']
-                    d = y['number_steps']
-                    e = y['time']
-                    f = y['steps']
-                    print("Description:", y['descrip'])
-                    print("This recipe has", y['number_steps'], "steps.")
-                    print("This recipe takes", y['time'], "minutes.")
+
+        state['information'] = y
+        a = y['name']
+        b = y['ingred']
+        b = b[0].strip('][').split(', ')
+        b = [a.strip('\'') for a in b]
+        b = [a.strip('\"') for a in b]
+        print("after:",b)
+        b=[a+","for a in b]
+        c = y['descrip']
+        d = y['number_steps']
+        e = y['time']
+        f = y['steps']
+        f = f[0].strip('][').split(', ')
+        f = [a.strip('\'') for a in f]
+        f = [a.strip('\"') for a in f]
+        f=[a+","for a in f]
+        print("Description:", y['descrip'])
+        print("This recipe has", y['number_steps'], "steps.")
+        print("This recipe takes", y['time'], "minutes.")
         state['name'] = ' '.join(a)
         state['in'] = ' '.join(b)
         state['descrip'] = ' '.join(c)
@@ -120,38 +131,32 @@ def information():
 
     if narrow == 'description':
         print("\n")
-        for y in state['recipes']:
-            for key in y['name']:
-                if r == key:
-                    state['information'] = y['descrip']
-                    a = y['descrip']
-                    b = y['name']
-                    print("Description:", y['descrip'])
+
+        state['information'] = y['descrip']
+        a = y['descrip']
+        b = y['name']
+        print("Description:", y['descrip'])
 
         state['descrip'] = ' '.join(a)
         state['name'] = ' '.join(b)
 
     if narrow == 'number of steps':
         print("\n")
-        for y in state['recipes']:
-            for key in y['name']:
-                if r == key:
-                    state['information'] = y['number_steps']
-                    a = y['number_steps']
-                    b = y['name']
-                    print("This recipe has", y['number_steps'], "steps.")
+
+        state['information'] = y['number_steps']
+        a = y['number_steps']
+        b = y['name']
+        print("This recipe has", y['number_steps'], "steps.")
         state['number_steps'] = ' '.join(a)
         state['name'] = ' '.join(b)
 
     if narrow == 'time':
         print("\n")
-        for y in state['recipes']:
-            for key in y['name']:
-                if r == key:
-                    state['information'] = y['time']
-                    a = y['time']
-                    b = y['name']
-                    print("This recipe takes", y['time'], "minutes.")
+
+        state['information'] = y['time']
+        a = y['time']
+        b = y['name']
+        print("This recipe takes", y['time'], "minutes.")
         state['time'] = ' '.join(a)
         state['name'] = ' '.join(b)
         state['hour'] = int(state['time'])/60
@@ -159,15 +164,12 @@ def information():
 
     if narrow == "step":
         print("\n")
-        for y in state['recipes']:
-            for key in y['name']:
-                if r == key:
-                    a = y['steps']
-                    b = y['name']
-                    if "/" in y['steps']:
-                        print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
-                    else:
-                        print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))
+        a = y['steps']
+        b = y['name']
+        if "/" in y['steps']:
+            print("These are the steps: \n\n ", str(y['steps']).replace('/' , '\n'))
+        else:
+            print("These are the steps: \n\n ", str(y['steps']).replace(',' , '\n'))
         state['steps'] = ' '.join(a)
         state['name'] = ' '.join(b)
     return render_template("information.html",state=state)
